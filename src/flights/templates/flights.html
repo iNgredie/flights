@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Дата/время вылета</th>
+            <th scope="col">Аэропорт вылета</th>
+            <th scope="col">Дата/время прилета</th>
+            <th scope="col">Аэропорт прилета</th>
+        </tr>
+        </thead>
+        {% for item in object_list %}
+        <tbody>
+        <tr>
+            <td>{% if item.departure_time %}{{ item.departure_time }}{% else %} - {% endif %}</td>
+            <td>{% if item.departure_airport %}{{ item.departure_airport }}{% else %} - {% endif %}</td>
+            <td>{% if item.arrival_time %}{{ item.arrival_time }}{% else %} - {% endif %}</td>
+            <td>{% if item.arrival_airport %}{{ item.arrival_airport }}{% else %} - {% endif %}</td>
+        </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+</div>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+</body>
+</html>
